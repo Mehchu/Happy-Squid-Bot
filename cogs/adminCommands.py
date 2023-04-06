@@ -8,12 +8,13 @@ class AdminCog(commands.Cog):
 
     @commands.command(name="say", help="Sends message to given channel")
     async def announce(self, ctx, channel, *args):
-        chat = self.get_channel(int(channel))
+        chat = self.bot.get_channel(int(channel))
         string = ""
         if args[0][0] != ".":
             for i in args:
                 string += i + " "
             await chat.send(string)
+        await ctx.message.delete()
 
     @commands.command(name="spam",
                       help="Spams second argument in the channel id provided in the first argument, third argument amount of "
