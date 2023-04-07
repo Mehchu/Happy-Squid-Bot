@@ -48,6 +48,23 @@ class MusicCog(commands.Cog):
         await ctx.send(f'**Music: **{url}')
         await ctx.message.delete()
 
+    @commands.command(name='bugatti', help='To play song')
+    async def topG(self, ctx):
+        data = await self.join_voice(ctx)
+        if data == True:
+            guild = ctx.message.guild
+            voice_client = guild.voice_client
+            path = "topg.mp3"
+
+            voice_client.play(discord.FFmpegPCMAudio(
+                path), after=lambda x: repeat(guild, voice_client, discord.FFmpegPCMAudio(
+                    path)))
+            voice_client.source = discord.PCMVolumeTransformer(
+                voice_client.source, 1)
+
+            def repeat(guild, voice, audio):
+                voice.play(audio, after=lambda e: repeat(guild, voice, audio))
+                voice.is_playing()
 
 async def setup(bot):
     await bot.add_cog(MusicCog(bot))
