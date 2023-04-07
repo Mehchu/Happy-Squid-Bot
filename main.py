@@ -12,13 +12,14 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 class MyBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix='?', intents=discord.Intents.all(),
+        super().__init__(command_prefix='#', intents=discord.Intents.all(),
                          description="Happy Squid Bot")
         self.initial_extensions = [
             'cogs.voiceCommands',
             'cogs.customCommands',
             'cogs.randomCommands',
             'cogs.adminCommands',
+            'cogs.music'
         ]
 
     async def setup_hook(self):
